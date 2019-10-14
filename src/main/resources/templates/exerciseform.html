@@ -24,8 +24,8 @@
 	<div class="container">
 		<h4 class="mt-4">Welche Übungen hast du heute gemacht?</h4>
 		<div class="row">
-		<!-- Das Eingabeformular -->
-			<form method="post" th:object="${exercise}" action="/exercise">
+		<!-- Das Eingabeformular - das den /exercise/save-request auslöst -->
+			<form method="post" th:object="${exercise}" action="/exercise/save">
 				<div class="row m-2">
 					<h5 class="mr-1">1. Übung:</h5>
 					<input class="mr-3" th:type="text" th:field="*{exercise1}" />
@@ -50,6 +50,7 @@
 		<!-- Die Übersicht der bisherigen Datenbankeinträge-->
 		<h4 class="mt-2">Folgende Übungen hast du bereits absolviert:</h4>
 		<div class="table-responsive border border-success">
+		
 			<table class="table">
 				<thead>
 					<tr>
@@ -60,6 +61,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				
 					<tr th:each="exercise : ${exercises}">
 						<td><span th:text="${exercise.exercise1}"> Übung 1 </span></td>
 						<td><span th:text="${exercise.wiederholungen1}">
@@ -67,10 +69,16 @@
 						<td><span th:text="${exercise.exercise2}"> Übung 2 </span></td>
 						<td><span th:text="${exercise.wiederholungen2}">
 								Wiederholungen 2 </span></td>
-						<td><button th:type="submit" th:name="action" th:value="delete + ${exercise.id}">Delete</button></td> 
-					</tr>
+								
+						<!-- Delete Button-->
+						<td>
+						<form action="/exercise/delete" method="post">
+						<button th:type="submit" th:name="delete" th:value="${exercise.id}">Delete</button>
+						</form>
+						</td> 											
+					</tr>					
 				</tbody>
-			</table>
+			</table>			
 		</div>
 	</div>
 	<!-- Placed at the end of the document so the pages load faster -->

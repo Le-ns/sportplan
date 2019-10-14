@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/exercise")
@@ -14,20 +15,22 @@ public class ExerciseController {
 
 	public ExerciseController(ExerciseRepository exercises) {
 		this.exercises = exercises;
-		exercises.save(new Exercise(null, "Liegestütz", "Sit-ups", 4, 15));
-		exercises.save(new Exercise(null, "Crunches", "Schulterbrücke", 13, 8));
+//		exercises.save(new Exercise(null, "Liegestütz", "Sit-ups", 4, 15));
+//		exercises.save(new Exercise(null, "Crunches", "Schulterbrücke", 13, 8));
 	}
 
 	@GetMapping
 	public String exerciseForm(Model model) {
 		model.addAttribute("exercises", exercises.findAll());
+
 		Exercise exercise = new Exercise();
 
 		model.addAttribute("exercise", exercise);
+
 		return "exerciseform";
 	}
 
-	@PostMapping
+	@PostMapping("/save")
 	public String postExercise(@ModelAttribute Exercise exercise, Model model) {
 
 		exercises.save(exercise);
@@ -37,13 +40,15 @@ public class ExerciseController {
 		return "exerciseform";
 	}
 
-//	@PostMapping("/delete")
-//	public String deleteExercise(@ModelAttribute Exercise exercise, Model model) {
-//
-//		exercises.save(exercise);
-//
-//		model.addAttribute("exercises", exercises.findAll());
-//
-//		return "exercise";
-//	}
+	@PostMapping("/delete")
+	public String deleteExercise(@RequestParam("delete") Long id, Model model) {
+
+		exercises.deleteById(id);
+
+		model.addAttribute("exercises", exercises.findAll());
+
+		return "redirect:";
+
+	}
+
 }
