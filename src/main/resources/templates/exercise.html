@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"></meta>
+<title>Mein Sportplan</title>
+<body>
+<h2>Bisher absolvierte Übungen</h2>
+<table>
+    <thead>
+        <tr>
+            <th> Übung 1 </th>
+            <th> Wiederholungen</th>
+            <th> Übung 2</th>
+            <th> Wiederholungen</th>
+        </tr>
+    </thead>
+    <tbody>
+   <!--  
+    <tr th:if="${exercise.empty}">
+            <td colspan="2"> Keine Übungen absolviert </td>
+        </tr>
+        -->
+        <tr th:each="exercise : ${exercises}">
+            <td><span th:text="${exercise.exercise1}"> Übung 1 </span></td>
+            <td><span th:text="${exercise.wiederholungen1}"> Wiederholungen 1 </span></td>
+            <td><span th:text="${exercise.exercise2}"> Übung 2 </span></td>
+            <td><span th:text="${exercise.wiederholungen2}"> Wiederholungen 2 </span></td>
+        </tr>
+    </tbody>
+</table>   
+    <a href="/exercise">Weitere Übungen hinzufügen</a>
+</body>
+</head>
+</html>

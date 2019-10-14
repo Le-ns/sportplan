@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"></meta>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	type="text/css" rel="stylesheet">
+<title>Mein Sportplan</title>
+</head>
+<body>
+	<!--Der Header-->
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+			<a class="navbar-brand" href="#"><strong>Mein Sportplan</strong>
+				<i class="fa fa-fw fa-bicycle"></i> 
+				<i
+				class="fa fa-fw fa-child"></i> </a>
+		</nav>
+	</header>
+	<div class="container">
+		<h4 class="mt-4">Welche Übungen hast du heute gemacht?</h4>
+		<div class="row">
+		<!-- Das Eingabeformular -->
+			<form method="post" th:object="${exercise}" action="/exercise">
+				<div class="row m-2">
+					<h5 class="mr-1">1. Übung:</h5>
+					<input class="mr-3" th:type="text" th:field="*{exercise1}" />
+					<h5 class="mr-1">Anzahl Wiederholungen:</h5>
+					<input th:type="text" th:field="*{wiederholungen1}" />
+				</div>
+				<div class="row m-2">
+					<h5 class="mr-1">2. Übung:</h5>
+					<input class="mr-3" th:type="text" th:field="*{exercise2}" />
+					<h5 class="mr-1">Anzahl Wiederholungen:</h5>
+					<input th:type="text" th:field="*{wiederholungen2}" />
+				</div>
+				<div class="row m-2">
+					<div class="col-1 offset-10">
+						<!-- Führt zum Speichern der Eingabe -->
+						<input th:type="submit" value="Speichern"
+							class="btn btn-outline-success" />
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- Die Übersicht der bisherigen Datenbankeinträge-->
+		<h4 class="mt-2">Folgende Übungen hast du bereits absolviert:</h4>
+		<div class="table-responsive border border-success">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Übung 1</th>
+						<th scope="col">Wiederholungen</th>
+						<th scope="col">Übung 2</th>
+						<th scope="col">Wiederholungen</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="exercise : ${exercises}">
+						<td><span th:text="${exercise.exercise1}"> Übung 1 </span></td>
+						<td><span th:text="${exercise.wiederholungen1}">
+								Wiederholungen 1 </span></td>
+						<td><span th:text="${exercise.exercise2}"> Übung 2 </span></td>
+						<td><span th:text="${exercise.wiederholungen2}">
+								Wiederholungen 2 </span></td>
+						<td><button th:type="submit" th:name="action" th:value="delete + ${exercise.id}">Delete</button></td> 
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+</body>
+</html>
