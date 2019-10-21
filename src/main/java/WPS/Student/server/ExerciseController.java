@@ -21,17 +21,19 @@ public class ExerciseController {
 
 	@GetMapping
 	public String exerciseForm(Model model) {
+
 		model.addAttribute("exercises", exercises.findAll());
 
 		Exercise exercise = new Exercise();
 
-		model.addAttribute("exercise", exercise);
+		model.addAttribute("exerciseExemplar", exercise);
 
 		return "exerciseform";
+
 	}
 
 	@PostMapping("/save")
-	public String postExercise(@ModelAttribute Exercise exercise, Model model) {
+	public String postExercise(@ModelAttribute(name = "exerciseExemplar") Exercise exercise, Model model) {
 
 		exercises.save(exercise);
 

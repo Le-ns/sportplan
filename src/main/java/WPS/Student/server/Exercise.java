@@ -20,12 +20,16 @@ public class Exercise {
 	@GeneratedValue
 	private Long id;
 
+	private String wochentag;
+
 	private String exercise1;
 
-	private String exercise2;
+//	private String exercise2;
 
-	private int wiederholungen1;
+	private int wiederholungen;
 
-	private int wiederholungen2;
+//	private int wiederholungen2;
+
+	private int dauerInSekunden;
 
 }

@@ -25,21 +25,31 @@
 		<h4 class="mt-4">Welche Übungen hast du heute gemacht?</h4>
 		<div class="row">
 		<!-- Das Eingabeformular - das den /exercise/save-request auslöst -->
-			<form method="post" th:object="${exercise}" action="/exercise/save">
-				<div class="row m-2">
-					<h5 class="mr-1">1. Übung:</h5>
-					<input class="mr-3" th:type="text" th:field="*{exercise1}" />
-					<h5 class="mr-1">Anzahl Wiederholungen:</h5>
-					<input th:type="text" th:field="*{wiederholungen1}" />
+			<form method="post" th:object="${exerciseExemplar}" action="/exercise/save">
+			<div class="row m-2">
+					<label class="col-lg-4">Wochentag:</br>
+					<select th:field="*{wochentag}">
+					     <option th:value="Montag" th:text="Montag"></option>
+					     <option th:value="Dienstag" th:text="Dienstag"></option>
+					     <option th:value="Mittwoch" th:text="Mittwoch"></option>
+					     <option th:value="Donnerstag" th:text="Donnerstag"></option>
+					     <option th:value="Freitag" th:text="Freitag"></option>
+					     <option th:value="Samstag" th:text="Samstag"></option>
+					     <option th:value="Sonntag" th:text="Sonntag"></option>
+					</select>
+            		</label>
+					<label class="col-lg-4">Übung:
+					<input th:type="text" th:field="*{exercise1}" /></label>
 				</div>
 				<div class="row m-2">
-					<h5 class="mr-1">2. Übung:</h5>
-					<input class="mr-3" th:type="text" th:field="*{exercise2}" />
-					<h5 class="mr-1">Anzahl Wiederholungen:</h5>
-					<input th:type="text" th:field="*{wiederholungen2}" />
+					<label class="col-lg-4">Wiederholungen:
+					<input th:type="text" th:field="*{wiederholungen}" /></label>
+					<label class="col-lg-4">Dauer (in Sekunden):
+					<input th:type="text" th:field="*{dauerInSekunden}" /></label>
+					
 				</div>
 				<div class="row m-2">
-					<div class="col-1 offset-10">
+					<div class="col-1 offset-3">
 						<!-- Führt zum Speichern der Eingabe -->
 						<input th:type="submit" value="Speichern"
 							class="btn btn-outline-success" />
@@ -48,27 +58,28 @@
 			</form>
 		</div>
 		<!-- Die Übersicht der bisherigen Datenbankeinträge-->
-		<h4 class="mt-2">Folgende Übungen hast du bereits absolviert:</h4>
+		<h4 class="mt-2 mb-4">Folgende Übungen hast du bereits absolviert:</h4>
 		<div class="table-responsive border border-success">
 		
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">Übung 1</th>
+						<th scope="col">Wochentag</th>
+						<th scope="col">Übung</th>
 						<th scope="col">Wiederholungen</th>
-						<th scope="col">Übung 2</th>
-						<th scope="col">Wiederholungen</th>
+						<th scope="col">Dauer</th>
 					</tr>
 				</thead>
 				<tbody>
 				
 					<tr th:each="exercise : ${exercises}">
-						<td><span th:text="${exercise.exercise1}"> Übung 1 </span></td>
-						<td><span th:text="${exercise.wiederholungen1}">
-								Wiederholungen 1 </span></td>
-						<td><span th:text="${exercise.exercise2}"> Übung 2 </span></td>
-						<td><span th:text="${exercise.wiederholungen2}">
-								Wiederholungen 2 </span></td>
+						<td><span th:text="${exercise.wochentag}"> Wochentag </span></td>
+						<td><span th:text="${exercise.exercise1}">
+								Übung </span></td>
+						<td><span th:text="${exercise.wiederholungen}">
+								Wiederholungen </span></td>
+						<td><span th:text="${exercise.dauerInSekunden}"> Dauer </span></td>
+						
 								
 						<!-- Delete Button-->
 						<td>
