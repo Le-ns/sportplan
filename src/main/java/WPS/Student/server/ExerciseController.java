@@ -24,7 +24,7 @@ public class ExerciseController {
 
 		model.addAttribute("exercises", exercises.findAll());
 
-		Exercise exercise = new Exercise();
+		Exercise exercise = new Exercise(null, "Montag", "", 1, 120);
 
 		model.addAttribute("exerciseExemplar", exercise);
 
@@ -40,6 +40,7 @@ public class ExerciseController {
 		model.addAttribute("exercises", exercises.findAll());
 
 		return "exerciseform";
+
 	}
 
 	@PostMapping("/delete")
@@ -48,6 +49,15 @@ public class ExerciseController {
 		exercises.deleteById(id);
 
 		model.addAttribute("exercises", exercises.findAll());
+
+		return "redirect:";
+
+	}
+
+	@PostMapping("/deleteall")
+	public String deleteAllExercises() {
+
+		exercises.deleteAll();
 
 		return "redirect:";
 

@@ -27,7 +27,7 @@
 		<!-- Das Eingabeformular - das den /exercise/save-request auslöst -->
 			<form method="post" th:object="${exerciseExemplar}" action="/exercise/save">
 			<div class="row m-2">
-					<label class="col-lg-4">Wochentag:</br>
+					<label class="col-lg-4">Wochentag:<br>
 					<select th:field="*{wochentag}">
 					     <option th:value="Montag" th:text="Montag"></option>
 					     <option th:value="Dienstag" th:text="Dienstag"></option>
@@ -39,19 +39,19 @@
 					</select>
             		</label>
 					<label class="col-lg-4">Übung:
-					<input th:type="text" th:field="*{exercise1}" /></label>
+					<input th:type="text" th:field="*{exercise1}" required pattern="[a-zA-Z]+(-)?(\s?[a-zA-Z]+)*" /></label>
 				</div>
 				<div class="row m-2">
 					<label class="col-lg-4">Wiederholungen:
-					<input th:type="text" th:field="*{wiederholungen}" /></label>
+					<input th:type="number" th:field="*{wiederholungen}" min=1 max=1000 /></label>
 					<label class="col-lg-4">Dauer (in Sekunden):
-					<input th:type="text" th:field="*{dauerInSekunden}" /></label>
+					<input th:type="number" th:field="*{dauerInSekunden}" min=1 max=6000 /></label>
 					
 				</div>
 				<div class="row m-2">
 					<div class="col-1 offset-3">
 						<!-- Führt zum Speichern der Eingabe -->
-						<input th:type="submit" value="Speichern"
+						<input th:type="submit" value="Eintrag speichern"
 							class="btn btn-outline-success" />
 					</div>
 				</div>
@@ -59,7 +59,12 @@
 		</div>
 		<!-- Die Übersicht der bisherigen Datenbankeinträge-->
 		<h4 class="mt-2 mb-4">Folgende Übungen hast du bereits absolviert:</h4>
-		<div class="table-responsive border border-success">
+		<!-- Führt zum Löschen aller Datenbankeinträge -->
+		<form action="/exercise/deleteall" method="post">
+						<button th:type="submit"
+							class="btn btn-outline-danger" >Alle Einträge löschen</button>
+		</form>
+		<div class="table-responsive border border-success mt-3">
 		
 			<table class="table">
 				<thead>
